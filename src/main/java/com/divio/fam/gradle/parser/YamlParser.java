@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class YamlParser<AST> {
@@ -36,13 +38,13 @@ public class YamlParser<AST> {
             throw new YamlParseException(e.getMessage());
         }
 
-        var validationResult = validatorFactory.getValidator().validate(ast);
+        Set<ConstraintViolation<AST>> validationResult = validatorFactory.getValidator().validate(ast);
 
         if (validationResult.isEmpty()) {
             return ast;
         }
 
-        var errorMessage = validationResult.stream()
+        String errorMessage = validationResult.stream()
                 .map(cv -> cv.getPropertyPath() + " " + cv.getMessage())
                 .collect(Collectors.joining("\n"));
 
@@ -50,12 +52,12 @@ public class YamlParser<AST> {
     }
 
     public AST parse(final List<String> lines) throws YamlParseException {
-        var joined = String.join("\n", lines);
+        String joined = String.join("\n", lines);
         return parse(joined);
     }
 
     public AST parse(final File file) throws YamlParseException, IOException {
-        var lines = Files.readAllLines(file.toPath());
+        List<String> lines = Files.readAllLines(file.toPath());
         return parse(lines);
     }
 
@@ -65,7 +67,7 @@ public class YamlParser<AST> {
     }
 
     public void write(final AST ast, final File file) throws IOException {
-        try (var fileWriter = new FileWriter(file)) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
             objectMapper.writeValue(fileWriter, ast);
         }
     }

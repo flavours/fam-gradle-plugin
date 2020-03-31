@@ -54,14 +54,14 @@ public class AppConfig implements ValidatableConfig<AppConfig> {
 
     @JsonIgnore
     public AppConfig addAddon(final String packageValue, final AddonMeta addonMetaValue) {
-        var newAddonsValue = new HashMap<>(addonsValue);
+        Map<String, AddonMeta> newAddonsValue = new HashMap<>(addonsValue);
         newAddonsValue.put(packageValue, addonMetaValue);
         return withAddons(newAddonsValue);
     }
 
     @JsonIgnore
     public AppConfig removeAddon(final String addonHash) {
-        var newAddonsValue = addonsValue.entrySet().stream()
+        Map<String, AddonMeta> newAddonsValue = addonsValue.entrySet().stream()
                 .filter(es -> !es.getValue().getHash().equals(addonHash))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         return withAddons(newAddonsValue);
