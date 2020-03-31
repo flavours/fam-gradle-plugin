@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -74,6 +75,6 @@ public class AppConfig implements ValidatableConfig<AppConfig> {
 
     @Override
     public Set<ConstraintViolation<AppConfig>> validate() {
-        return Set.of();
+        return Collections.emptySet();
     }
 }

@@ -13,7 +13,8 @@ public class Meta {
     @NotBlank
     private String versionValue;
 
-    public Meta() { }
+    public Meta() {
+    }
 
     public Meta(final String nameValue, final String versionValue) {
         this.nameValue = nameValue;

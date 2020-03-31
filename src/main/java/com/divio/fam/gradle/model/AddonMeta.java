@@ -13,7 +13,8 @@ public class AddonMeta {
     @NotBlank
     private String hashValue;
 
-    public AddonMeta() { }
+    public AddonMeta() {
+    }
 
     public AddonMeta(final String managerValue, final String hashValue) {
         this.managerValue = managerValue;

@@ -1,8 +1,8 @@
 package com.divio.fam.gradle;
 
+import com.divio.fam.gradle.model.AppConfig;
 import com.divio.fam.gradle.parser.YamlParseException;
 import com.divio.fam.gradle.parser.YamlParser;
-import com.divio.fam.gradle.model.AppConfig;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
