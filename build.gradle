@@ -30,7 +30,7 @@ dependencies {
 gradlePlugin {
     plugins {
         famGradle {
-            id = 'fam-gradle-plugin'
+            id = 'com.divio.fam.gradle.plugin'
             implementationClass = 'com.divio.fam.gradle.FamPlugin'
         }
     }
