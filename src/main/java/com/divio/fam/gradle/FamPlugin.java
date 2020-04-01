@@ -18,12 +18,12 @@ public class FamPlugin implements Plugin<Project> {
     @Override
     public void apply(Project target) {
         YamlParser<AppConfig> yamlParser = new YamlParser<>(AppConfig.class);
-        File file = new File("app.flavour");
+        File appFile = new File("app.flavour");
 
-        if (file.exists()) {
+        if (appFile.exists()) {
             AppConfig appConfig = null;
             try {
-                List<String> fileContents = Files.readAllLines(file.toPath());
+                List<String> fileContents = Files.readAllLines(appFile.toPath());
                 if (fileContents.stream().anyMatch(line -> !line.trim().isEmpty())) {
                     appConfig = yamlParser.parse(fileContents);
                 }

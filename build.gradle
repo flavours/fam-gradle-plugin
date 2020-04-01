@@ -1,7 +1,11 @@
 plugins {
     id 'java-gradle-plugin'
     id 'maven'
+    id 'maven-publish'
 }
+
+group = "com.github.megri"
+version = "master-SNAPSHOT"
 
 repositories {
     jcenter()
