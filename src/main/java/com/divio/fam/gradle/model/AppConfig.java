@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AppConfig implements ValidatableConfig<AppConfig> {
+public class AppConfig {
     @JsonProperty("spec")
     @NotBlank
     private String specValue;
@@ -71,10 +71,5 @@ public class AppConfig implements ValidatableConfig<AppConfig> {
     public boolean hasAddon(final String addonHash) {
         return addonsValue.entrySet().stream()
                 .anyMatch(es -> es.getValue().getHash().equals(addonHash));
-    }
-
-    @Override
-    public Set<ConstraintViolation<AppConfig>> validate() {
-        return Collections.emptySet();
     }
 }
