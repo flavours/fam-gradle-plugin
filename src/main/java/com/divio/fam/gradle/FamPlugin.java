@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FamPlugin implements Plugin<Project> {
-    public static final Path ADDONS_DIRECTORY_PATH = Paths.get("./flavour", "addons");
+    public static final Path ADDONS_DIRECTORY_PATH = Paths.get("./.flavour", "addons");
 
     @Override
     public void apply(Project target) {
