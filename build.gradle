@@ -1,11 +1,12 @@
 plugins {
+    id "com.gradle.plugin-publish" version "0.11.0"
     id 'java-gradle-plugin'
     id 'maven'
     id 'maven-publish'
 }
 
-group = "com.github.megri"
-version = "master-SNAPSHOT"
+group = "com.divio.fam.gradle"
+version = "0.1"
 
 repositories {
     jcenter()
@@ -36,6 +37,20 @@ gradlePlugin {
         famGradle {
             id = 'com.divio.fam.gradle.plugin'
             implementationClass = 'com.divio.fam.gradle.FamPlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'http://www.flavours.dev/'
+    vcsUrl = 'https://github.com/flavours/fam-gradle-plugin'
+    description = 'This Gradle plugin works in tantem with the Gradle Flavour addon manager and allows addons to be easily managed with the Flavours CLI tool.'
+    tags = ['flavours']
+
+    plugins {
+        famGradle {
+            // id is captured from java-gradle-plugin configuration
+            displayName = 'Flavour gradle plugin'
         }
     }
 }
