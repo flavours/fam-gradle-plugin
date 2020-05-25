@@ -8,6 +8,7 @@ import com.divio.fam.gradle.parser.YamlParser;
 import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.plugins.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +22,8 @@ public class FamPlugin implements Plugin<Project> {
     public static final Path ADDONS_DIRECTORY_PATH = Paths.get("./.flavour", "addons");
 
     @Override
-    public void apply(Project target) {
+    public void apply(Project project) {
+        project.getPluginManager().apply(JavaPlugin.class);
         YamlParser<AppConfig> appConfigParser = new YamlParser<>(AppConfig.class);
         YamlParser<AddonConfig> addonConfigParser = new YamlParser<>(AddonConfig.class);
         File appFile = new File("app.flavour");
@@ -40,7 +42,10 @@ public class FamPlugin implements Plugin<Project> {
             if (appConfig != null) {
                 for (Map.Entry<String, AddonMeta> entry : appConfig.getAddons().entrySet()) {
                     if (entry.getValue().getManager().startsWith("flavour/fam-gradle")) {
-                        target.getDependencies().add("implementation", readAddonFile(entry.getValue().getHash(), addonConfigParser));
+                        project.getDependencies().add(
+                                JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
+                                readAddonFile(entry.getValue().getHash(), addonConfigParser)
+                        );
                     }
                 }
             }
